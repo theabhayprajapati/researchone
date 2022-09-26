@@ -7,7 +7,7 @@ function createMario() {
     var mario = document.createElement('img');
     var lefttunnel = document.getElementById('lefttunnel');
     var righttunnel = document.getElementById('righttunel');
-    mario.src = '../public/images/mario.png';
+    mario.src = 'https://raw.githubusercontent.com/theabhayprajapati/researchone/main/public/images/mario.png';
     mario.style.position = 'absolute';
     mario.style.zIndex = '10';
     mario.style.cursor = 'pointer';
