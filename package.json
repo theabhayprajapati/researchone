@@ -20,12 +20,12 @@
   },
   "homepage": "https://github.com/theabhayprajapati/nqueens-board#readme",
   "devDependencies": {
-    "eslint-plugin-functional": "^4.3.0",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.11.0"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.36.2"
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "kaboom": "^2000.2.9"
   }
 }
