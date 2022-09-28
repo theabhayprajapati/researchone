@@ -1,9 +1,11 @@
-import { generateRandomBoolean, getRandomArbitrary, start, startTimer, stopTimer } from "./helper.js";
+import { generateRandomBoolean, getRandomArbitrary, start, stopTimer } from "./helper.js";
 // var mario = document.getElementById('mario');
 var gamefram = document.getElementById("frame");
 var timer = document.getElementById("timer");
 let beforejump;
 var mario;
+let marioonleft;
+let marioonright;
 function createMario() {
     mario = document.createElement("img");
     var lefttunnel = document.getElementById("lefttunnel");
@@ -25,9 +27,17 @@ function createMario() {
     var randomX;
     if (which) {
         randomX = getRandomArbitrary(valueofleftTunnel, valueofleftTunnel);
+        marioonleft = true;
+        marioonright = false;
     } else {
         randomX = getRandomArbitrary(valueofrightTunnel, valueofrightTunnel);
+        marioonright = true;
+        marioonleft = false;
     }
+    console.log('randomX', randomX);
+    console.log('which', which);
+    console.log('left', marioonleft);
+    console.log('right', marioonright);
     var randomY = getRandomArbitrary(0, 0);
     mario.style.left = randomX + "px";
     mario.style.top = randomY + "px";
@@ -65,11 +75,9 @@ document.addEventListener("keydown", function (event) {
                 // destor mario elemetn
                 mario.remove();
                 clearInterval(falling);
-                console.log(falling)
+                stopTimer();
             }
             fallinginterval = falling;
-            console.log(falling)
-            console.log(currentYaxisofmario);
         }
             , 20);
     }
@@ -84,13 +92,31 @@ const sleep = () => {
 
 function removemario() {
     if (mario) {
+        clearInterval(fallinginterval);
         mario.remove();
+        stopTimer();
     }
 }
 document.addEventListener("keydown", function (event) {
     /* space */
     if (event.keyCode === 32) {
         removemario()
-        stopTimer();
     }
-})
+});
+
+document.addEventListener("keydown", function (event) {
+    if (event.keyCode === 39) {
+        if (marioonright) {
+            console.log('remove mario on right');
+            removemario()
+        }
+    }
+});
+document.addEventListener("keydown", function (event) {
+    if (event.keyCode === 37) {
+        if (marioonleft) {
+            console.log('remove mario left');
+            removemario()
+        }
+    }
+});

@@ -23,7 +23,6 @@ function startTimer() {
         // appendSeconds.innerHTML = seconds;
     }
     timer.innerHTML = seconds + ":" + tens;
-    console.log(seconds + ":" + tens);
 }
 let Interval;
 function start() {
