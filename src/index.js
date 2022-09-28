@@ -91,11 +91,11 @@ const sleep = () => {
 }
 
 function removemario() {
+    clearInterval(fallinginterval);
     if (mario) {
-        clearInterval(fallinginterval);
         mario.remove();
-        stopTimer();
     }
+    stopTimer();
 }
 document.addEventListener("keydown", function (event) {
     /* space */
@@ -116,7 +116,7 @@ document.addEventListener("keydown", function (event) {
     if (event.keyCode === 37) {
         if (marioonleft) {
             console.log('remove mario left');
-            removemario()
+            removemario();
         }
     }
 });
