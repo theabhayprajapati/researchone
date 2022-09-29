@@ -1,11 +1,24 @@
 import { generateRandomBoolean, getRandomArbitrary, start, stopTimer } from "./helper.js";
-// var mario = document.getElementById('mario');
 var gamefram = document.getElementById("frame");
 var timer = document.getElementById("timer");
 let beforejump;
 var mario;
 let marioonleft;
 let marioonright;
+let gamestart = false;
+
+const keycodes = {
+    left: 37,
+    right: 39,
+    space: 32,
+    enter: 13
+}
+const scores = {
+    left: 0,
+    right: 0,
+    center: 0,
+    total: 0
+}
 function createMario() {
     if (document.getElementById('mario')) {
         document.getElementById('mario').remove()
@@ -37,11 +50,8 @@ function createMario() {
         marioonright = true;
         marioonleft = false;
     }
-    console.log('randomX', randomX);
-    console.log('which', which);
-    console.log('left', marioonleft);
-    console.log('right', marioonright);
     var randomY = getRandomArbitrary(0, 0);
+    console.log('randomY', randomY);
     mario.style.left = randomX + "px";
     mario.style.top = randomY + "px";
     mario.style.width = "100px";
@@ -54,24 +64,14 @@ function createMario() {
 let Interval;
 
 var fallinginterval;
-document.addEventListener("keydown", async function (event) {
-    if (event.keyCode === 13) {
-        clearInterval(fallinginterval);
-        const startmessage = document.getElementById("startmessage");
-        if (startmessage) {
-            startmessage.remove()
-        }
-        /* run init() and when init function is complete then run fallling() */
-        await init();
-        // falling();
-    }
-});
+
 
 function falling() {
     var currentYaxisofmario = parseInt(
         window.getComputedStyle(mario).getPropertyValue("top")
     );
     var falling = setInterval(function () {
+        fallinginterval = falling;
         mario.style.top = currentYaxisofmario + 10 + "px";
         currentYaxisofmario = currentYaxisofmario + 10;
         if (currentYaxisofmario == 500) {
@@ -83,7 +83,6 @@ function falling() {
             stopTimer();
             init();
         }
-        fallinginterval = falling;
     }
         , 20);
 }
@@ -97,29 +96,45 @@ function removemario() {
     init();
 
 }
-document.addEventListener("keydown", function (event) {
-    /* space */
-    if (event.keyCode === 32) {
-        removemario();
+const initialgamestart = async () => {
+    clearInterval(fallinginterval);
+    gamestart = true;
+    const startmessage = document.getElementById("startmessage");
+    if (startmessage) {
+        startmessage.innerHTML = "  "
     }
+    await init();
+}
+document.addEventListener("keydown", function (event) {
+    if (event.keyCode === keycodes.enter) {
+        event.preventDefault();
+        gamestart ? null : initialgamestart();
+    }
+    if (event.keyCode === keycodes.space) {
+        event.preventDefault();
+        if (gamestart) {
+            removemario();
+        }
+    }
+    if (event.keyCode === keycodes.left) {
+        event.preventDefault();
+        if (gamestart) {
+            if (marioonleft) {
+                removemario();
+            }
+        }
+    }
+    if (event.keyCode === keycodes.right) {
+        event.preventDefault();
+        if (gamestart) {
+            if (marioonright) {
+                removemario();
+            }
+        }
+    }
+
 });
 
-document.addEventListener("keydown", function (event) {
-    if (event.keyCode === 39) {
-        if (marioonright) {
-            console.log('remove mario on right');
-            removemario();
-        }
-    }
-});
-document.addEventListener("keydown", function (event) {
-    if (event.keyCode === 37) {
-        if (marioonleft) {
-            console.log('remove mario left');
-            removemario();
-        }
-    }
-});
 
 /* timeout sleep */
 async function timeout(ms) {
@@ -128,7 +143,8 @@ async function timeout(ms) {
 
 async function init() {
     const randomtimeout = getRandomArbitrary(1000, 5000);
-    console.log('randomtimeout', randomtimeout);
+    clearInterval(fallinginterval);
+    stopTimer();
     timeout(randomtimeout).then(() => {
         createMario();
         start();

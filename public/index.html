@@ -5,20 +5,28 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, user-scalable=0" />
-    <meta name=" title" content="N-Queens Maze" />
-    <meta name="description" content="A Simple Mario" />
+    <meta name=" title" content="Mario Game" />
+    <meta name="description"
+        content="A Simple Mario Game that can test users relex timing: Generating mario between 10 - seconds randomly and you have press space before he goes down. If you did that then timer will say number of seconds you took. " />
     <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:wght@100;300;400;500;700;900&family=Ropa+Sans&family=Varela+Round&display=swap"
+        href="
+        https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:wght@100;300;400;500;700;900&family=Ropa+Sans&family=Varela+Round&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="./styles/style.css">
-    <meta property="og:image" content="/favicon.ico" />
-    <title>Mario Game</title>
+    <meta property="og:image" content="../public/images/ogimage.png" />
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../public/images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="../public/images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="../public/images/favicon.ico">
+    <link rel="manifest" href="../public/images/favicon.ico">
+
+    <title>Mario Game | Simple Game to test your</title>
 </head>
 
 <body>
 
     <center>
-        <span id="timer"></span>
+        <span id="timer">0:00</span>
     </center>
     <div id="frame">
         <!-- <img src="./images/mario.png" id="mario" alt="mario"> -->
@@ -27,10 +35,10 @@
         <img src="./images/tunnel2.png" class="tunnel" id="lefttunnel" alt="tunnel">
         <img src="./images/tunnel2.png" class="tunnel2" id="righttunel" alt="tunnel">
         <h2 id="startmessage">
-            Press Enter to Start
+            Press <kbd>Enter</kbd> to start
         </h2>
-        <!-- <img src="./images/tunnel.png" class="tunnel" alt="tunnel"> -->
     </div>
+
     <script type="module" src="./main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
 </body>
