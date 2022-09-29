@@ -7,6 +7,9 @@ var mario;
 let marioonleft;
 let marioonright;
 function createMario() {
+    if (document.getElementById('mario')) {
+        document.getElementById('mario').remove()
+    }
     mario = document.createElement("img");
     var lefttunnel = document.getElementById("lefttunnel");
     var righttunnel = document.getElementById("righttunel");
@@ -51,56 +54,53 @@ function createMario() {
 let Interval;
 
 var fallinginterval;
-document.addEventListener("keydown", function (event) {
+document.addEventListener("keydown", async function (event) {
     if (event.keyCode === 13) {
         clearInterval(fallinginterval);
-        start();
         const startmessage = document.getElementById("startmessage");
         if (startmessage) {
             startmessage.remove()
         }
-        if (document.getElementById('mario')) {
-            document.getElementById('mario').remove()
-        }
-        createMario();
-        var currentYaxisofmario = parseInt(
-            window.getComputedStyle(mario).getPropertyValue("top")
-        );
-        var falling = setInterval(function () {
-            mario.style.top = currentYaxisofmario + 10 + "px";
-            currentYaxisofmario = currentYaxisofmario + 10;
-            if (currentYaxisofmario == 500) {
-                console.log('clear interval');
-                // clear timer
-                // destor mario elemetn
-                mario.remove();
-                clearInterval(falling);
-                stopTimer();
-            }
-            fallinginterval = falling;
-        }
-            , 20);
+        /* run init() and when init function is complete then run fallling() */
+        await init();
+        // falling();
     }
 });
-const sleep = () => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve()
-        }, 20)
-    })
-}
 
+function falling() {
+    var currentYaxisofmario = parseInt(
+        window.getComputedStyle(mario).getPropertyValue("top")
+    );
+    var falling = setInterval(function () {
+        mario.style.top = currentYaxisofmario + 10 + "px";
+        currentYaxisofmario = currentYaxisofmario + 10;
+        if (currentYaxisofmario == 500) {
+            console.log('clear interval');
+            // clear timer
+            // destor mario elemetn
+            mario.remove();
+            clearInterval(falling);
+            stopTimer();
+            init();
+        }
+        fallinginterval = falling;
+    }
+        , 20);
+}
 function removemario() {
     clearInterval(fallinginterval);
+    //clear all intervals
     if (mario) {
         mario.remove();
     }
     stopTimer();
+    init();
+
 }
 document.addEventListener("keydown", function (event) {
     /* space */
     if (event.keyCode === 32) {
-        removemario()
+        removemario();
     }
 });
 
@@ -108,7 +108,7 @@ document.addEventListener("keydown", function (event) {
     if (event.keyCode === 39) {
         if (marioonright) {
             console.log('remove mario on right');
-            removemario()
+            removemario();
         }
     }
 });
@@ -120,3 +120,19 @@ document.addEventListener("keydown", function (event) {
         }
     }
 });
+
+/* timeout sleep */
+async function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function init() {
+    const randomtimeout = getRandomArbitrary(1000, 5000);
+    console.log('randomtimeout', randomtimeout);
+    timeout(randomtimeout).then(() => {
+        createMario();
+        start();
+        console.log('completed creating')
+        falling();
+    });
+}
