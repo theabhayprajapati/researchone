@@ -1,4 +1,4 @@
-import { generateRandomBoolean, getRandomArbitrary, start, stopTimer } from "./helper.js";
+import { downloadCSV, generateRandomBoolean, getRandomArbitrary, start, stopTimer } from "./helper.js";
 var gamefram = document.getElementById("frame");
 var timer = document.getElementById("timer");
 let beforejump;
@@ -6,19 +6,20 @@ var mario;
 let marioonleft;
 let marioonright;
 let gamestart = false;
-
+var downloadbtn = document.getElementById("download");
 const keycodes = {
     left: 37,
     right: 39,
     space: 32,
     enter: 13
 }
-const scores = {
-    left: 0,
-    right: 0,
-    center: 0,
-    total: 0
+const totalscores = [];
+const score = {
+    mario: 0,
+    timetaken: 0
 }
+
+let currentmarionumber = 0;
 function createMario() {
     if (document.getElementById('mario')) {
         document.getElementById('mario').remove()
@@ -60,12 +61,11 @@ function createMario() {
     beforejump = parseInt(
         window.getComputedStyle(mario).getPropertyValue("top")
     );
+    currentmarionumber = currentmarionumber + 1;
+
 }
 let Interval;
-
 var fallinginterval;
-
-
 function falling() {
     var currentYaxisofmario = parseInt(
         window.getComputedStyle(mario).getPropertyValue("top")
@@ -76,22 +76,29 @@ function falling() {
         currentYaxisofmario = currentYaxisofmario + 10;
         if (currentYaxisofmario == 500) {
             console.log('clear interval');
-            // clear timer
-            // destor mario elemetn
-            mario.remove();
-            clearInterval(falling);
-            stopTimer();
-            init();
+            removemario();
         }
     }
         , 20);
 }
+var newans = []
 function removemario() {
     clearInterval(fallinginterval);
+    console.log(totalscores)
     //clear all intervals
     if (mario) {
         mario.remove();
     }
+    totalscores.push([
+        {
+            mario: currentmarionumber,
+            timetaken: timer.innerHTML
+        }
+    ])
+    addstatsdata({
+        mario: currentmarionumber,
+        timetaken: timer.innerHTML
+    })
     stopTimer();
     init();
 
@@ -135,7 +142,25 @@ document.addEventListener("keydown", function (event) {
 
 });
 
+downloadbtn.addEventListener('click', () => {
+    downloadCSV(totalscores);
+})
 
+function addstatsdata(data) {
+    const { mario, timetaken } = data;
+    const tr = document.createElement('tr');
+    tr.id = 'table-record';
+    const td1 = document.createElement('td');
+    td1.id = 'mariocount';
+    td1.innerHTML = mario;
+    const td2 = document.createElement('td');
+    td2.id = 'timetaken';
+    td2.innerHTML = timetaken;
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    var table = document.getElementById("table-records");
+    table.appendChild(tr);
+}
 /* timeout sleep */
 async function timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

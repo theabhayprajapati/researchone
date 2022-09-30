@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, user-scalable=0" />
     <meta name=" title" content="Mario Game" />
     <meta name="description"
-        content="A Simple Mario Game that can test users relex timing: Generating mario between 10 - seconds randomly and you have press space before he goes down. If you did that then timer will say number of seconds you took. " />
+        content="A Simple Mario Game that can test users reflex timing: Generating mario between 10 - seconds randomly and you have press space before he goes down. If you did that then timer will say number of seconds you took. " />
     <link rel="stylesheet" href="./styles/style.css">
     <meta property="og:image" content="../public/styles/ogimage.png" />
     <!-- favicon -->
@@ -15,13 +15,18 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../public/styles/favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="../public/styles/favicon.ico">
     <link rel="manifest" href="../public/styles/favicon.ico">
-    <title>Mario Game | Simple Game to test your</title>
+    <title>Mario Game | Simple Game to test your reflexs.</title>
 </head>
 
 <body>
 
     <center>
         <span id="timer">0:00</span>
+    </center>
+    <center>
+        <button id="download">
+            download game data.
+        </button>
     </center>
     <div id="frame">
         <!-- <img src="./images/mario.png" id="mario" alt="mario"> -->
@@ -32,7 +37,30 @@
         <h2 id="startmessage">
             Press <kbd>Enter</kbd> to start
         </h2>
+        <div id="stats">
+            <h2 id="stats-title">
+                Stats:
+            </h2>
+            <!-- 
+
+                {
+                    mario: 0,
+                    timetaken: 0,
+                }
+             -->
+            <!-- table -->
+            <table id="stats-table">
+                <tr id="table-heading">
+                    <th>Number of Mario</th>
+                    <th>Time Taken</th>
+                </tr>
+                <tbody id="table-records">
+                    
+                </tbody>
+            </table>
+        </div>
     </div>
+
 
     <script type="module" src="./main.js"></script>
 </body>

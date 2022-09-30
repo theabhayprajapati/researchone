@@ -46,7 +46,21 @@ body {
   font-size: 2rem;
   color: greenyellow;
 }
-
+table {
+  color: white;
+  font-size: 1.5rem;
+}
+#table-heading {
+  gap: 1rem;
+  display: flex;
+}
+#mariocount {
+  color: greenyellow;
+}
+#timetaken {
+  color: red;
+}
+/* all tr td:nth shoul be red color */
 #movementsscores {
   /* font-size: rem; */
   display: flex;
