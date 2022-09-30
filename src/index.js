@@ -143,7 +143,11 @@ document.addEventListener("keydown", function (event) {
 });
 
 downloadbtn.addEventListener('click', () => {
-    downloadCSV(totalscores);
+    if (totalscores.length > 0) {
+        downloadCSV(totalscores);
+    } else {
+        alert('No data to download');
+    }
 })
 
 function addstatsdata(data) {
