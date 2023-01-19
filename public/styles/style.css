@@ -10,7 +10,13 @@
   font-family: "Space Mission", sans-serif;
 }
 body {
-  background-color: #121212;
+  background-color: lightcyan;
+  height: 100vh;
+  width: 100vw;
+  /* center */
+  display: flex;
+  justify-content: center;
+  align-items: center;  
 }
 #frame {
   /* center with screen */
